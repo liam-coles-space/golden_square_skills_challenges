@@ -41,6 +41,7 @@ class DiaryEntry:
         # If called again, `reading_chunk` should return the next chunk,
         # skipping what has already been read, until the contents is fully read.
         # The next call after that should restart from the beginning.
+        
         words_list = self.contents.split()
         word_count = wpm * minutes
         new_words = ' '.join(words_list[self.position:self.position + word_count])

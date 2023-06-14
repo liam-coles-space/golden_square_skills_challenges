@@ -8,3 +8,6 @@ class TaskTracker:
 
     def list_tasks(self):
         return self.task_list
+    
+    def complete_task(self, task):
+        self.task_list.remove(task)
