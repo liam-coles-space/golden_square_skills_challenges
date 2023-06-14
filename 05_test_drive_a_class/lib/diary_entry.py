@@ -2,6 +2,7 @@ class DiaryEntry:
     def __init__(self, title, contents):
         self.title = title
         self.contents = contents
+        self.position = 0
 
     def format(self):
         # Returns:
@@ -40,9 +41,8 @@ class DiaryEntry:
         # If called again, `reading_chunk` should return the next chunk,
         # skipping what has already been read, until the contents is fully read.
         # The next call after that should restart from the beginning.
-        target_word_count = self.reading_time(wpm)
-        words_needed = target_word_count * minutes
         words_list = self.contents.split()
-        new_words = ' '.join(words_list[0:words_needed])
-
+        word_count = wpm * minutes
+        new_words = ' '.join(words_list[self.position:self.position + word_count])
+        self.position += word_count 
         return new_words
