@@ -34,6 +34,13 @@ def test_reading_chunk_returns_correct_string_each_time_called():
     assert diary_entry.reading_chunk(3,2) == "Text in here now five six"
     assert diary_entry.reading_chunk(1,3) == "seven eight nine"
     assert diary_entry.reading_chunk(2,4) == "ten eleven twelve thirteen"
+
+def test_reading_chunk_loops_back_to_start():
+    diary_entry = DiaryEntry("March", "Text in here now five six seven eight nine ten eleven twelve thirteen")
+    assert diary_entry.reading_chunk(3,2) == "Text in here now five six"
+    assert diary_entry.reading_chunk(1,3) == "seven eight nine"
+    assert diary_entry.reading_chunk(2,4) == "ten eleven twelve thirteen"
+    assert diary_entry.reading_chunk(2,1) == "Text in"
     
     
 

@@ -43,6 +43,8 @@ class DiaryEntry:
         # The next call after that should restart from the beginning.
         
         words_list = self.contents.split()
+        if self.position > len(words_list):
+            self.position = 0
         word_count = wpm * minutes
         new_words = ' '.join(words_list[self.position:self.position + word_count])
         self.position += word_count 
