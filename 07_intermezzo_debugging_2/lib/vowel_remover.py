@@ -12,6 +12,7 @@ class VowelRemover:
             if self.text[i].lower() not in self.vowels:
                 new_text += self.text[i]
             i += 1
+            
         return new_text
     
 remover = VowelRemover("aeiou")
