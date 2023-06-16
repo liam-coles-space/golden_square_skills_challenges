@@ -40,7 +40,7 @@ def test_add_multiple_diary_entries_and_returns_best_entry_for_reading_time():
     entry2 = DiaryEntry('Number 3', 'Contents Five Words Five Words')
     entry3 = DiaryEntry('Number 4', 'Contents Six Words Six Words Words')
     diary.add(entry1)
-    diary.add(entry2)
+    diary.add(entry2) 
     diary.add(entry3)
     assert diary.find_best_entry_for_reading_time(3,2).title == entry3.title
     assert diary.find_best_entry_for_reading_time(3,2).contents == entry3.contents
