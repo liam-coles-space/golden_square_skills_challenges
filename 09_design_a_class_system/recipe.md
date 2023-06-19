@@ -47,6 +47,8 @@ Diary entry
  - word_count()
     => int
  - mark_task_as_complete(task)
+ - list_completed_tasks()
+    => [tasks...]
 _______________________________________
 |                      |
 | owns a list of       | owns a list of 
@@ -122,6 +124,10 @@ class DiaryEntry:
         # Side effects:
         #   Changes complete property in single Todo object in todos property to True
         pass
+
+    def list_completed_tasks(self):
+        # Returns:
+        #   list of completed tasks 
 
 class Todo:
         # User_facing properties:

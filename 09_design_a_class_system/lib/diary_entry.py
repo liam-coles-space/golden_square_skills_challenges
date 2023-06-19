@@ -21,4 +21,17 @@ class DiaryEntry:
         #   task: string value 
         # Side effects:
         #   Changes complete property in single Todo object in todos property to True
-        pass
+        for todo in self.todos:
+            if todo.task == task and todo.complete != True:
+                todo.complete = True
+        
+    def list_completed_tasks(self):
+        # Returns:
+        #   list of completed tasks 
+        task_list = []
+        
+        for todo in self.todos:  
+            if todo.complete == True:
+                task_list.append(todo.task)
+
+        return task_list

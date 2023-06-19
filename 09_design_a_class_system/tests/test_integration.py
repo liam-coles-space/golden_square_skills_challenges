@@ -50,4 +50,22 @@ def test_find_diary_by_date_returns_diary_for_date():
     diary.add(entry1)
     diary.add(entry2)
     diary.add(entry3)
-    diary.find_diary_entry_by_date('05-05-2023')
+    assert diary.find_diary_entry_by_date('05-05-2023') == entry2
+
+def test_mark_as_complete_marks_correct_task_in_correct_entry_as_complete():
+    diary = Diary()
+    phone_numbers = [PhoneNumber("Gary Man","0123456"), PhoneNumber("Mary Lamb","0789123")]
+    todo1 = Todo('Cleaning')
+    todo2 = Todo("Shopping")
+    entry1 = DiaryEntry('03-04-2023', 'Diary entry length four', [todo1, todo2], phone_numbers)
+    todo3 = Todo('Ironing')
+    todo4 = Todo("Washing")
+    entry2 = DiaryEntry('05-05-2023', 'Diary entry length is five',  [todo3, todo4], phone_numbers)
+    diary.add(entry1)
+    diary.add(entry2)
+    diary.mark_task_as_complete('05-05-2023', "Washing")
+    new_entry = diary.find_diary_entry_by_date('05-05-2023')
+    assert new_entry.list_completed_tasks() == ["Washing"]
+    
+    
+

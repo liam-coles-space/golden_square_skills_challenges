@@ -15,3 +15,7 @@ def test_get_diary_entry_for_reading_speed_and_time_returns_none_when_no_diary_e
 def test_get_all_phone_numbers_returns_empty_list_when_no_diary_entries():
     diary = Diary()
     assert diary.get_all_phone_numbers() == []
+
+def test_find_diary_entry_by_date_returns_none_when_no_diary_entries():
+    diary = Diary()
+    assert diary.find_diary_entry_by_date('03-04-2021') == None

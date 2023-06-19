@@ -50,11 +50,15 @@ class Diary:
         # Returns:
         #   diary_entry object from diary_entries property that corresponds with 
         #   date arguement. If not found then None
-        pass
-    def mark_task_as_complete(date, task):
+        for entry in self._diary_entries:
+            if entry.date == date:
+                return entry
+
+    def mark_task_as_complete(self, date, task):
         # Parameters:
         #   Date: date value in format (dd-mm-yyyy) 
         #   Task: string value
         # Side effect:
         #   Marks single task in single diary entry as complete
-        pass
+        diary_entry = self.find_diary_entry_by_date(date)
+        diary_entry.mark_task_as_complete(task)
