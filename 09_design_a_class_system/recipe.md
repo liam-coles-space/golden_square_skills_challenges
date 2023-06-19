@@ -40,11 +40,11 @@ ______________________________________
 |
 ______________________________________
 Diary entry
- - date
+ - date 
+ - text 
  - todos
  - phone numbers 
- - text 
- - text_word_count()
+ - word_count()
     => int
  - mark_task_as_complete(task)
 _______________________________________
@@ -52,14 +52,14 @@ _______________________________________
 | owns a list of       | owns a list of 
 |                      |
 _______________________________________
-todo                   Phone Number
+Todo                   Phone Number
 -task                  -number
--complete              -name 
+-complete              -name
 -mark_as_complete()
 
 class Diary:
-    #User_facing properties:
-    #    diary_entries: list of instances of DiaryEntry
+    # User_facing properties:
+    #    diary_entries: dictionary of instances of DiaryEntry
 
     def __init__(self):
         pass
@@ -76,12 +76,74 @@ class Diary:
         #   A list of all the diary_entry objects in the diary_entries propery
         pass
     
-    def get_diary_entry_for_reading_speed_and_time(self, WPM, Minutes)
+    def get_diary_entry_for_reading_speed_and_time(self, WPM, Minutes):
         # Parameters: 
         #   WPM: int
         #   Minutes: int
         # Returns:
-        #   The diary entry object that has the text property that has the closest number of words to the WPM * Minutes
+        #   The diary entry object that has the text property that has the closest number of words (equal or less) to the WPM * Minutes
+        pass
+    def get_all_phone_number(self): 
+        # Returns:
+        #   A list of all the PhoneNumber objects in each of the diary entry objects stored in the diary_entry property
+        pass
+    def find_diary_entry_by_date(self, date):
+        # Parameters:
+        #   Date: date value in format (dd-mm-yyyy) 
+        # Returns:
+        #   diary_entry object from diary_entries property that corresponds with 
+        #   date arguement. If not found then None
+        pass
+    def mark_task_as_complete(date, task):
+        # Parameters:
+        #   Date: date value in format (dd-mm-yyyy) 
+        #   Task: string value
+        # Side effect:
+        #   Marks single task in single diary entry as complete
+        pass
 
-           
+class DiaryEntry:
+        # User_facing properties:
+        #   date: value in format dd-mm-yyyy
+        #   todos : list of Todo objects 
+        #   phone_numbers: list of PhoneNumber objects 
+        #   text: string value
+        
+    def __init__(self):
+        pass
+
+    def word_count(self):
+        # Returns:
+        #   int value representing number of words in text property of object
+
+    def mark_task_as_complete(self, task)
+        # Parameters:
+        #   task: string value 
+        # Side effects:
+        #   Changes complete property in single Todo object in todos property to True
+        pass
+
+class Todo:
+        # User_facing properties:
+        #   Task: string value
+
+    def __init__(self):
+        pass
+
+    def mark_as_complete(Task):
+        # Parameters:
+        #   Task: String value
+        # Side effects: 
+        #   changes complete property to True
+       pass
+
+class PhoneNumber:
+        # User_facing properties:
+        #   Name: string value
+        #   Number: string value
+    def __init__(self):
+        pass
+
+      
+
      
