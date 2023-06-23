@@ -1,6 +1,3 @@
-from lib.order import *
-from lib.menu import *
-
 class TakeAway:
     # User facing properties:
     #   menu: list of instances of dish

@@ -1,15 +1,14 @@
 from lib.order import *
 from unittest.mock import Mock
+import time_machine
 
 def test_order_construct():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     assert order.delivery_time == 30    
     assert order.comms == comms_mock
-    assert order.time == time_mock
     assert order.order_items == []
     assert order.menu == menu_mock
     assert order.receipt == receipt_mock
@@ -20,12 +19,11 @@ correct dish object is added to order_items list
 """
 def test_add_order_item_adds_retrieved_dish_to_order_items():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     dish_mock = Mock()
     receipt_mock = Mock()
     menu_mock.find_dish.return_value = dish_mock
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     order.add_order_item('Pizza', 1)
     assert order.order_items == [dish_mock]
     assert menu_mock.find_dish.assert_called
@@ -36,12 +34,11 @@ correct dish object is added to order_items list 3 times
 """ 
 def test_add_order_item_quantity_3_adds_retrieved_dishes_to_order_items():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     dish_mock = Mock()
     receipt_mock = Mock()
     menu_mock.find_dish.return_value = dish_mock
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     order.add_order_item('Pizza', 3)
     assert order.order_items == [dish_mock, dish_mock, dish_mock]
     assert menu_mock.find_dish.assert_called
@@ -52,11 +49,10 @@ nothing is added to order_items list
 """ 
 def test_add_order_item_add_nothing_when_dish_not_found():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
     menu_mock.find_dish.return_value = None
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     assert order.add_order_item('Pizza', 3) == False
     assert order.order_items == []
     assert menu_mock.find_dish.assert_called
@@ -67,13 +63,12 @@ matching dish object is removed from order_items list
 """
 def test_remove_order_item_removes_single_item_when_called_with_quantity_of_one():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
     dish_mock1 = Mock()
     dish_mock1.name = 'Pizza'
     menu_mock.find_dish.return_value = dish_mock1
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     order.add_order_item('Pizza', 2)
     dish_mock2 = Mock()
     dish_mock2.name = 'Curry'
@@ -89,13 +84,12 @@ matching dish objects are removed from order_items list
 """
 def test_remove_order_item_removes_multiple_items_when_called_with_quantity_of_3():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
     dish_mock1 = Mock()
     dish_mock1.name = 'Pizza'
     menu_mock.find_dish.return_value = dish_mock1
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     order.add_order_item('Pizza', 4)
     dish_mock2 = Mock()
     dish_mock2.name = 'Curry'
@@ -111,13 +105,12 @@ no objects are removed from item_list
 """
 def test_remove_order_item_when_item_not_in_list():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
     dish_mock1 = Mock()
     dish_mock1.name = 'Pizza'
     menu_mock.find_dish.return_value = dish_mock1
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     order.add_order_item('Pizza', 2)
     order.remove_order_item('Curry', 3)
     assert order.order_items == [dish_mock1, dish_mock1]
@@ -129,11 +122,10 @@ The receipt object method create is called with a dictionary of one key value pa
 """
 def test_generate_receipt_for_one_item_returns_valid_list():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
     receipt_mock.create.return_value = ['Pizza £10', 'Total £10']
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     dish_mock = Mock()
     dish_mock.name = 'Pizza'
     dish_mock.price = 10
@@ -148,11 +140,10 @@ returns None
 """
 def test_generate_receipt_when_no_item_returns_empty_list():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
     receipt_mock.create.return_value = []
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     assert order.generate_receipt() == []
 """
 when generate_receipt is called where items_list has 3 items 
@@ -160,11 +151,10 @@ The receipt object method create is called with a dictionary of three key value 
 """
 def test_generate_receipt_for_three_items_returns_valid_list():
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
     receipt_mock.create.return_value = ['Pizza £10', 'Curry £15', 'Cake £5', 'Total £10']
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     dish_mock1 = Mock()
     dish_mock1.name = 'Pizza'
     dish_mock1.price = 10
@@ -188,13 +178,11 @@ when send_confirmation_text is called with phone number
 the comms object method send_text_message is called with phone_number and correctly formatted message, including correct delivery time
 """ 
 def test_send_confirmation_text_sets_up_message_correctly_and_calls_comms_object():
+    traveler = time_machine.travel(1687431055, tick = False)
+    traveler.start()
     comms_mock = Mock()
-    time_mock = Mock()
     menu_mock = Mock()
     receipt_mock = Mock()
-    time_mock.strftime.return_value = '11:51'
-    time_mock.time.return_value = 1687431055
-    time_mock.localtime.return_value = 100
-    order = Order(30, comms_mock, time_mock, menu_mock, receipt_mock)
+    order = Order(30, comms_mock, menu_mock, receipt_mock)
     order.send_confirmation_text('0178945521')
-    comms_mock.send_text_message.assert_called_once_with('0178945521', 'Thank you! Your order was placed and will be delivered before 11:51')
+    comms_mock.send_text_message.assert_called_once_with('0178945521', 'Thank you! Your order was placed and will be delivered before 12:20')

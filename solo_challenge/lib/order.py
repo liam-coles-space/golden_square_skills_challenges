@@ -1,11 +1,12 @@
+import time as time
+
 class Order:
     # User facing properties:
     #   none
 
-    def __init__(self, delivery_time, comms, time, menu, receipt):
+    def __init__(self, delivery_time, comms, menu, receipt):
         self.delivery_time = delivery_time
         self.comms = comms
-        self.time = time
         self.menu = menu
         self.receipt = receipt
         self.order_items = []
@@ -57,6 +58,6 @@ class Order:
         # Side effects:
         #   Calls comms.send_text_message which sends out text message
         #  
-        estimated_delivery_time = self.time.localtime(self.time.time() + self.delivery_time * 60)
-        self.comms.send_text_message(phone_number, f"Thank you! Your order was placed and will be delivered before {self.time.strftime('%H:%M' ,estimated_delivery_time)}")
+        estimated_delivery_time = time.localtime(time.time() + self.delivery_time * 60)
+        self.comms.send_text_message(phone_number, f"Thank you! Your order was placed and will be delivered before {time.strftime('%H:%M' ,estimated_delivery_time)}")
 
